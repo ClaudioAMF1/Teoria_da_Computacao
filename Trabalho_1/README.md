@@ -15,12 +15,6 @@ O processo de minimização envolve:
 
 O projeto inclui um relatório detalhado em PDF, uma implementação em Python para simular os autômatos minimizados e uma apresentação de slides em formato web.
 
-## 🎥 Demonstração em Vídeo
-
-Para uma visão geral rápida e dinâmica do trabalho, assista à gravação da apresentação dos slides. O vídeo demonstra a navegação, o conteúdo e os resultados de forma prática.
-
-[**Clique aqui para assistir à demonstração da apresentação**](assets/Minimização_de_Autômatos_Finitos.mp4)
-
 ## 📁 Estrutura de Arquivos
 
 O projeto está organizado da seguinte forma:

@@ -1,7 +1,6 @@
 import re
 import sys
 
-# DICIONÁRIO COMPLETO COM TODAS AS 10 LINGUAGENS (a-j)
 linguagens = {
     'a': {
         "descricao": "L = { w ∈ {0,1}* | w termina em 01 }.",
@@ -67,7 +66,6 @@ def menu_principal():
     print("\n--- TESTADOR DE EXPRESSÕES REGULARES ---")
     for key in sorted(linguagens.keys()):
         value = linguagens[key]
-        # ALTERAÇÃO AQUI: A linha abaixo agora imprime a descrição completa, sem cortar.
         print(f"  {key}) {value['descricao']}")
     print("\nDigite 'sair' a qualquer momento para encerrar o programa.")
     return input("Escolha uma opção (a-j): ").lower()
@@ -104,7 +102,6 @@ def submenu_teste(letra):
             print("\nPrograma encerrado.")
             sys.exit()
 
-# Loop principal do programa
 if __name__ == "__main__":
     while True:
         escolha = menu_principal()

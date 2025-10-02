@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimização de Autômatos Finitos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Progress bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <!-- Slide counter -->
+        <div class="slide-counter" id="slide-counter">
+            Slide 1 de 23
+        </div>
+
+        <!-- Navigation buttons -->
+        <button class="nav-btn nav-prev" id="prev-btn" aria-label="Slide anterior">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <button class="nav-btn nav-next" id="next-btn" aria-label="Próximo slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+
+        <!-- Slides container -->
+        <div class="slides-wrapper" id="slides-wrapper">
+            <!-- Slide 1: Title -->
+            <div class="slide active" data-slide="1">
+                <div class="slide-content title-slide">
+                    <h1>Minimização de Autômatos Finitos</h1>
+                    <p class="authors">Alunos: Claudio Meireles e Felipe Dutra</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Automaton 1 - Definition -->
+            <div class="slide" data-slide="2">
+                <div class="slide-content">
+                    <h2>Autômato 1 (C) - Definição</h2>
+                    <div class="diagram-container">
+                        <img src="../assets/automato_c.png" alt="Diagrama do Autômato C Original" class="automaton-diagram">
+                    </div>
+                    <div class="specs-container">
+                        <div class="spec-item">
+                            <strong>Estados:</strong> {q₀, q₁, q₂, q₃, q₄, q₅, q₆}
+                        </div>
+                        <div class="spec-item">
+                            <strong>Alfabeto:</strong> {a, b}
+                        </div>
+                        <div class="spec-item">
+                            <strong>Estado Inicial:</strong> q₀
+                        </div>
+                        <div class="spec-item">
+                            <strong>Estados Finais:</strong> {q₀, q₁, q₃, q₆}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Automaton 1 - Original Transitions -->
+            <div class="slide" data-slide="3">
+                <div class="slide-content">
+                    <h2>Autômato 1 - Tabela de Transições Original</h2>
+                    <div class="table-container">
+                        <table class="transition-table">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial-final">→*q₀</td>
+                                    <td>q₁</td>
+                                    <td>q₂</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₁</td>
+                                    <td>q₃</td>
+                                    <td>q₄</td>
+                                </tr>
+                                <tr>
+                                    <td>q₂</td>
+                                    <td>q₅</td>
+                                    <td>q₆</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₃</td>
+                                    <td>q₃</td>
+                                    <td>q₃</td>
+                                </tr>
+                                <tr>
+                                    <td>q₄</td>
+                                    <td>q₄</td>
+                                    <td>q₄</td>
+                                </tr>
+                                <tr>
+                                    <td>q₅</td>
+                                    <td>q₅</td>
+                                    <td>q₅</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₆</td>
+                                    <td>q₆</td>
+                                    <td>q₆</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Unreachable States Question -->
+            <div class="slide" data-slide="4">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_c.png" alt="Diagrama do Autômato C" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Inacessíveis?</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Unreachable States Answer -->
+            <div class="slide" data-slide="5">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_c.png" alt="Diagrama do Autômato C" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Inacessíveis?</h2>
+                        <div class="answer">
+                            <p class="no-unreachable">Não Possui Estados Inacessíveis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Dead States Question -->
+            <div class="slide" data-slide="6">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_c.png" alt="Diagrama do Autômato C" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Mortos?</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Dead States Answer -->
+            <div class="slide" data-slide="7">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_c.png" alt="Diagrama do Autômato C" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Mortos?</h2>
+                        <div class="answer">
+                            <div class="dead-states">
+                                <span class="state-group">&lt;q₄&gt;</span>
+                                <span class="state-group">&lt;q₅&gt;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: After Dead States Removal -->
+            <div class="slide" data-slide="8">
+                <div class="slide-content">
+                    <h2>Autômato 1 - Após Remoção de Estados Mortos</h2>
+                    <div class="table-container">
+                        <table class="transition-table">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial-final">→*q₀</td>
+                                    <td>q₁</td>
+                                    <td>q₂</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₁</td>
+                                    <td>q₃</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td>q₂</td>
+                                    <td>q_sink</td>
+                                    <td>q₆</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₃</td>
+                                    <td>q₃</td>
+                                    <td>q₃</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₆</td>
+                                    <td>q₆</td>
+                                    <td>q₆</td>
+                                </tr>
+                                <tr>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Initial Partitioning -->
+            <div class="slide" data-slide="9">
+                <div class="slide-content">
+                    <h2>Autômato 1 - Particionamento Inicial</h2>
+                    <div class="table-container">
+                        <table class="transition-table partitioned">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial-final">→*q₀</td>
+                                    <td>q₁</td>
+                                    <td>q₂</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₁</td>
+                                    <td>q₃</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td>q₂</td>
+                                    <td>q_sink</td>
+                                    <td>q₆</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₃</td>
+                                    <td>q₃</td>
+                                    <td>q₃</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₆</td>
+                                    <td>q₆</td>
+                                    <td>q₆</td>
+                                </tr>
+                                <tr>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="partition-labels">
+                            <div class="partition-section">
+                                <h3>Estados Finais</h3>
+                                <div class="state-group">&lt;q₀q₁q₃q₆&gt;</div>
+                            </div>
+                            <div class="partition-section">
+                                <h3>Estados não Finais</h3>
+                                <div class="state-group">&lt;q₂q_sink&gt;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Refined Partitioning -->
+            <div class="slide" data-slide="10">
+                <div class="slide-content">
+                    <h2>Autômato 1 - Refinamento de Grupos</h2>
+                    <div class="partition-evolution">
+                        <div class="partition-step">
+                            <h3>P₁: Separação por Transições</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₀q₁&gt;</div>
+                                <div class="state-group">&lt;q₃q₆&gt;</div>
+                                <div class="state-group">&lt;q₂q_sink&gt;</div>
+                            </div>
+                        </div>
+                        <div class="partition-step">
+                            <h3>P₂: Separação adicional</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₀&gt;</div>
+                                <div class="state-group">&lt;q₁&gt;</div>
+                                <div class="state-group">&lt;q₃q₆&gt;</div>
+                                <div class="state-group">&lt;q₂q_sink&gt;</div>
+                            </div>
+                        </div>
+                        <div class="partition-step">
+                            <h3>P₃: Partição Final</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₀&gt;</div>
+                                <div class="state-group">&lt;q₁&gt;</div>
+                                <div class="state-group">&lt;q₂&gt;</div>
+                                <div class="state-group">&lt;q₃q₆&gt;</div>
+                                <div class="state-group">&lt;q_sink&gt;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Minimized Automaton Table -->
+            <div class="slide" data-slide="11">
+                <div class="slide-content">
+                    <h2>Autômato 1 - Tabela Minimizada</h2>
+                    <div class="table-container">
+                        <table class="transition-table">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial-final">→*[q₀]</td>
+                                    <td>[q₁]</td>
+                                    <td>[q₂]</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*[q₁]</td>
+                                    <td>[q₃q₆]</td>
+                                    <td>[q_sink]</td>
+                                </tr>
+                                <tr>
+                                    <td>[q₂]</td>
+                                    <td>[q_sink]</td>
+                                    <td>[q₃q₆]</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*[q₃q₆]</td>
+                                    <td>[q₃q₆]</td>
+                                    <td>[q₃q₆]</td>
+                                </tr>
+                                <tr>
+                                    <td>[q_sink]</td>
+                                    <td>[q_sink]</td>
+                                    <td>[q_sink]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Minimized Automaton Diagram -->
+            <div class="slide" data-slide="12">
+                <div class="slide-content">
+                    <h2>Autômato 1 (C) - Diagrama Minimizado</h2>
+                    <div class="diagram-container">
+                        <img src="../assets/automato_c_minimizado.png" alt="Diagrama do Autômato C Minimizado" class="automaton-diagram">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Automaton 2 - Definition -->
+            <div class="slide" data-slide="13">
+                <div class="slide-content">
+                    <h2>Autômato 2 (G) - Definição</h2>
+                    <div class="diagram-container">
+                        <img src="../assets/automato_g.png" alt="Diagrama do Autômato G Original" class="automaton-diagram">
+                    </div>
+                    <div class="specs-container">
+                        <div class="spec-item">
+                            <strong>Estados:</strong> {q₀, q₁, q₂, q₃, q₄, q₅, q₆}
+                        </div>
+                        <div class="spec-item">
+                            <strong>Alfabeto:</strong> {a, b}
+                        </div>
+                        <div class="spec-item">
+                            <strong>Estado Inicial:</strong> q₀
+                        </div>
+                        <div class="spec-item">
+                            <strong>Estados Finais:</strong> {q₁, q₃}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Automaton 2 - Original Transitions -->
+            <div class="slide" data-slide="14">
+                <div class="slide-content">
+                    <h2>Autômato 2 - Tabela de Transições Original</h2>
+                    <div class="table-container">
+                        <table class="transition-table">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial">→q₀</td>
+                                    <td>q₁</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₁</td>
+                                    <td>q₁</td>
+                                    <td>q₂</td>
+                                </tr>
+                                <tr>
+                                    <td>q₂</td>
+                                    <td>q₅</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₃</td>
+                                    <td>q₃</td>
+                                    <td>q₃</td>
+                                </tr>
+                                <tr>
+                                    <td>q₄</td>
+                                    <td>q₃</td>
+                                    <td>q₅</td>
+                                </tr>
+                                <tr>
+                                    <td>q₅</td>
+                                    <td>q₅</td>
+                                    <td>q₄</td>
+                                </tr>
+                                <tr>
+                                    <td>q₆</td>
+                                    <td>q₆</td>
+                                    <td>q₄</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: Automaton 2 - Unreachable States Question -->
+            <div class="slide" data-slide="15">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_g.png" alt="Diagrama do Autômato G" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Inacessíveis?</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Automaton 2 - Unreachable States Answer -->
+            <div class="slide" data-slide="16">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_g.png" alt="Diagrama do Autômato G" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Inacessíveis?</h2>
+                        <div class="answer">
+                            <div class="unreachable-states">
+                                <span class="state-group">&lt;q₆&gt;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: Automaton 2 - Dead States Question -->
+            <div class="slide" data-slide="17">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_g.png" alt="Diagrama do Autômato G" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Mortos?</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Automaton 2 - Dead States Answer -->
+            <div class="slide" data-slide="18">
+                <div class="slide-content">
+                    <div class="diagram-container">
+                        <img src="../assets/automato_g.png" alt="Diagrama do Autômato G" class="automaton-diagram">
+                    </div>
+                    <div class="question-container">
+                        <h2 class="question">Estados Mortos?</h2>
+                        <div class="answer">
+                            <p class="no-dead">Nenhum (após limpeza)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: Automaton 2 - After Cleanup -->
+            <div class="slide" data-slide="19">
+                <div class="slide-content">
+                    <h2>Autômato 2 - Após Limpeza</h2>
+                    <div class="table-container">
+                        <table class="transition-table">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial">→q₀</td>
+                                    <td>q₁</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₁</td>
+                                    <td>q₁</td>
+                                    <td>q₂</td>
+                                </tr>
+                                <tr>
+                                    <td>q₂</td>
+                                    <td>q₅</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₃</td>
+                                    <td>q₃</td>
+                                    <td>q₃</td>
+                                </tr>
+                                <tr>
+                                    <td>q₄</td>
+                                    <td>q₃</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td>q₅</td>
+                                    <td>q₅</td>
+                                    <td>q₄</td>
+                                </tr>
+                                <tr>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Automaton 2 - Initial Partitioning -->
+            <div class="slide" data-slide="20">
+                <div class="slide-content">
+                    <h2>Autômato 2 - Particionamento Inicial</h2>
+                    <div class="table-container">
+                        <table class="transition-table partitioned">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>a</th>
+                                    <th>b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="initial">→q₀</td>
+                                    <td>q₁</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₁</td>
+                                    <td>q₁</td>
+                                    <td>q₂</td>
+                                </tr>
+                                <tr>
+                                    <td>q₂</td>
+                                    <td>q₅</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td class="final">*q₃</td>
+                                    <td>q₃</td>
+                                    <td>q₃</td>
+                                </tr>
+                                <tr>
+                                    <td>q₄</td>
+                                    <td>q₃</td>
+                                    <td>q_sink</td>
+                                </tr>
+                                <tr>
+                                    <td>q₅</td>
+                                    <td>q₅</td>
+                                    <td>q₄</td>
+                                </tr>
+                                <tr>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                    <td>q_sink</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="partition-labels">
+                            <div class="partition-section">
+                                <h3>Estados Finais</h3>
+                                <div class="state-group">&lt;q₁q₃&gt;</div>
+                            </div>
+                            <div class="partition-section">
+                                <h3>Estados não Finais</h3>
+                                <div class="state-group">&lt;q₀q₂q₄q₅q_sink&gt;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 21: Automaton 2 - Progressive Partitioning -->
+            <div class="slide" data-slide="21">
+                <div class="slide-content">
+                    <h2>Autômato 2 - Refinamentos Progressivos</h2>
+                    <div class="partition-evolution">
+                        <div class="partition-step">
+                            <h3>P₁:</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₁&gt;</div>
+                                <div class="state-group">&lt;q₃&gt;</div>
+                                <div class="state-group">&lt;q₀q₄&gt;</div>
+                                <div class="state-group">&lt;q₂q₅q_sink&gt;</div>
+                            </div>
+                        </div>
+                        <div class="partition-step">
+                            <h3>P₂:</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₁&gt;</div>
+                                <div class="state-group">&lt;q₃&gt;</div>
+                                <div class="state-group">&lt;q₀q₄&gt;</div>
+                                <div class="state-group">&lt;q₅&gt;</div>
+                                <div class="state-group">&lt;q₂q_sink&gt;</div>
+                            </div>
+                        </div>
+                        <div class="partition-step">
+                            <h3>P₃:</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₁&gt;</div>
+                                <div class="state-group">&lt;q₃&gt;</div>
+                                <div class="state-group">&lt;q₀q₄&gt;</div>
+                                <div class="state-group">&lt;q₅&gt;</div>
+                                <div class="state-group">&lt;q₂&gt;</div>
+                                <div class="state-group">&lt;q_sink&gt;</div>
+                            </div>
+                        </div>
+                        <div class="partition-step">
+                            <h3>P₄ (Final):</h3>
+                            <div class="groups-container">
+                                <div class="state-group">&lt;q₀&gt;</div>
+                                <div class="state-group">&lt;q₁&gt;</div>
+                                <div class="state-group">&lt;q₂&gt;</div>
+                                <div class="state-group">&lt;q₃&gt;</div>
+                                <div class="state-group">&lt;q₄&gt;</div>
+                                <div class="state-group">&lt;q₅&gt;</div>
+                                <div class="state-group">&lt;q_sink&gt;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 22: Automaton 2 - Conclusion -->
+            <div class="slide" data-slide="22">
+                <div class="slide-content">
+                    <h2>Autômato 2 - Conclusão</h2>
+                    <div class="conclusion-container">
+                        <div class="conclusion-text">
+                            <h3>Resultado do Agrupamento:</h3>
+                            <p><strong>Nenhum estado é equivalente a outro.</strong></p>
+                            <p>O autômato original (após a limpeza) já era mínimo.</p>
+                        </div>
+                        <div class="diagram-container">
+                            <img src="../assets/automato_g_minimizado.png" alt="Diagrama do Autômato G Minimizado" class="automaton-diagram">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 23: Final -->
+            <div class="slide" data-slide="23">
+                <div class="slide-content title-slide">
+                    <h1>Trabalho Concluído</h1>
+                    <p class="thanks">Obrigado!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

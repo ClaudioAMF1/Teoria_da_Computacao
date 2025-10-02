@@ -1,0 +1,4 @@
+# Ignorar pasta do ambiente virtual do Python
+.venv/
+
+Trabalho_1/assets/*.mp4
